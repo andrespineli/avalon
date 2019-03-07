@@ -1,28 +1,23 @@
 <?php
 
 namespace App;
+use App\Controllers;
 
 class Router
 {
     private $server;
     private $post;
     private $routes = [];
-
   
-    public function __construct($server, $post)
+    public function __construct()
     {
-        $this->server = $server;
-        $this->post = $post;
-       // $this->get('/teste', 'Teste@get');
+        $this->server = $_SERVER;
+        $this->post = $_POST;
         $this->run();
     }
 
     public function run()
-    {
-        echo "<pre>";
-        print_r($this->server);
-        print_r($this->post);
-        echo "</pre>";
+    {        
     }
 
     public function get($route, $class)
@@ -35,7 +30,7 @@ class Router
 
     private function addRoute($route, $class)
     {   
-        $this->routes[$route] = $class;
+        $this->routes[$route] = $class;       
     }
 
     private function call()
@@ -43,9 +38,9 @@ class Router
         foreach ($this->routes as $route => $class) {
             $method = substr($class, - (strlen($class) - strpos($class, '@') - 1));
             $class = substr($class, 0, strpos($class, '@'));
-
+            print_r($this->routes);
             if($route == $this->server['REQUEST_URI']){
-                require_once __DIR__.'\\'.$class.'.php';
+                require_once __DIR__.'\\Controllers\\'.$class.'.php';
                 $instance = new $class;
                 $instance->$method();
             }         

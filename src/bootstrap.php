@@ -1,8 +1,4 @@
 <?php
 
-use App\Router;
+require_once __DIR__.'/routes.php';
 
-$router = new Router($_SERVER, $_POST);
-
-$router->get('/teste', 'Teste@get');
-$router->get('/teste2', 'Teste@get2');
