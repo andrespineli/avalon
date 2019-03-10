@@ -2,6 +2,7 @@
 
 namespace App;
 use App\Controllers;
+use App\Request;
 
 class Router
 {
@@ -10,10 +11,11 @@ class Router
     private $routes = [];
     private $reqRoute;
     private $reqType;
+    private $request;
   
     public function __construct()
     {        
-        $this->setRequestData();             
+        $this->request = new Request;             
     }
 
     public function get($uri, $class)
@@ -36,14 +38,19 @@ class Router
         $this->addRoute('DELETE', $uri, $class);
     }
 
+    private function addRoute($type, $uri, $class)
+    {                  
+        $this->routes[$type][$uri] = $class;             
+    }
+
     public function run()
-    {                   
-        if (!array_key_exists($this->reqType, $this->routes)) {
+    {                       
+        if (!array_key_exists($this->request->type, $this->routes)) {
             echo "Undefined route";
             return;
         }
 
-        if (!array_key_exists($this->reqRoute, $this->routes[$this->reqType])) {
+        if (!array_key_exists($this->request->route, $this->routes[$this->request->type])) {
             echo "Route not found";
             return;
         }       
@@ -51,38 +58,13 @@ class Router
         return $this->call();
     }    
 
-    private function addRoute($type, $uri, $class)
-    {                  
-        $this->routes[$type][$uri] = $class;            
-    }
-
     private function call()
     {          
-        $class = $this->routes[$this->reqType][$this->reqRoute];
+        $class = $this->routes[$this->request->type][$this->request->route];
         $method = substr($class, - (strlen($class) - strpos($class, '@') - 1));
         $class = substr($class, 0, strpos($class, '@'));        
         require_once __DIR__.'\\Controllers\\'.$class.'.php';
         $instance = new $class;
         $instance->$method($this->request);               
-    }
-
-    private function resolveInput()
-    {
-        foreach ($this->input as $key => $value) {
-            $field = substr($value, 0, strpos($value, '='));  
-            $data = substr($value, - (strlen($value) - strpos($value, '=') - 1));                  
-            $this->request[$field] = $data;
-        }
-    }
-
-    private function setRequestData()
-    {
-        $this->server = $_SERVER;        
-        $this->input = explode('&', file_get_contents("php://input", "r"));   
-        $this->resolveInput();    
-        $this->reqRoute = $this->server['REQUEST_URI']; 
-        $this->reqType = $this->server['REQUEST_METHOD'];      
-    }
-
-    
+    }    
 }
