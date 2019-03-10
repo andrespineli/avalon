@@ -1,2 +1,2 @@
 # avalon
-Avalon is a microframework for educational propouses.
+Avalon is a MVC PHP microframework for educational propouses.
