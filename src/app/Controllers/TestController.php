@@ -10,8 +10,7 @@ class TestController
     }
 
     public function testTwo($request)
-    {
-    	print_r($request);
-        echo "<pre>Hello, Test Two its ok!</pre>";
+    {    	        
+        return $request->all();
     }
 }
