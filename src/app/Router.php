@@ -23,6 +23,14 @@ class Router
     public function get($route, $class)
     {  
         $this->addRoute($route, $class);
+
+        $route = $this->server['REQUEST_URI'];      
+
+        if (!array_key_exists($route, $this->routes)) {
+            echo "Undefined route";
+            return;
+        }
+
         if($this->server['REQUEST_METHOD'] == 'GET'){
             return $this->call();
         }       
@@ -34,17 +42,17 @@ class Router
     }
 
     private function call()
-    {       
-        foreach ($this->routes as $route => $class) {
-            $method = substr($class, - (strlen($class) - strpos($class, '@') - 1));
-            $class = substr($class, 0, strpos($class, '@'));
-            print_r($this->routes);
-            if($route == $this->server['REQUEST_URI']){
-                require_once __DIR__.'\\Controllers\\'.$class.'.php';
-                $instance = new $class;
-                $instance->$method();
-            }         
-        }        
+    {              
+
+        
+        $class = $this->routes[$route];
+        $method = substr($class, - (strlen($class) - strpos($class, '@') - 1));
+        $class = substr($class, 0, strpos($class, '@'));
+        
+        require_once __DIR__.'\\Controllers\\'.$class.'.php';
+        $instance = new $class;
+        $instance->$method();         
+      
     }
 
     
