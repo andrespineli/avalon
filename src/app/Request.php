@@ -7,7 +7,7 @@ class Request
 	public $route;
 	public $type;
 	public $body;	
-	private $input;	
+	private $input = [];	
 
 	public function __construct()
 	{
@@ -26,10 +26,13 @@ class Request
 	}
 
 	private function setRequestData()
-    {              
-        $this->input = explode('&', file_get_contents("php://input", "r"));               
+    {                              
         $this->route = $_SERVER['REQUEST_URI']; 
-        $this->type = $_SERVER['REQUEST_METHOD'];              
+        $this->type = $_SERVER['REQUEST_METHOD'];    
+
+        if ($this->type != 'GET') {
+        	$this->input = explode('&', file_get_contents("php://input", "r"));
+        }          
     }
 
 	private function resolveInput()
@@ -44,6 +47,9 @@ class Request
 
    	private function json($data)
    	{
+   		if (!$data) {
+   			return;
+   		}
    		return json_encode($data, JSON_PRETTY_PRINT);
    	}
 }

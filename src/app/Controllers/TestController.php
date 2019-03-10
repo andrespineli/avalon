@@ -4,9 +4,10 @@
 
 class TestController
 {
-    public function testOne()
+    public function testOne($request)
     {
         echo "<pre>Hello, Test One its ok!</pre>";
+        return $request->all();
     }
 
     public function testTwo($request)
