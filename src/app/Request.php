@@ -7,12 +7,20 @@ class Request
 	public $route;
 	public $type;
 	public $body;	
-	private $input = [];	
+	public $params;
+	private $input = [];
+	public $routes = [];
 
 	public function __construct()
-	{
+	{		
 		$this->setRequestData();
-		$this->resolveInput();		
+		$this->resolveInput();			
+	}
+
+	public function setRoutes($routes)
+	{
+		$this->routes = $routes;
+		$this->resolveRouteParams();
 	}
 
 	public function all()
@@ -51,5 +59,39 @@ class Request
    			return;
    		}
    		return json_encode($data, JSON_PRETTY_PRINT);
+   	}
+
+   	private function resolveRouteParams()
+   	{
+   		foreach ($this->routes[$this->type] as $key => $value) {
+            preg_match_all('/\/[a-z0-9]*/', $this->route, $reqMatches); 
+            preg_match_all('/\/[{a-z0-9}]*/', $key, $hasMatches);      
+
+            if (count($reqMatches[0]) != count($hasMatches[0])) {
+                continue;
+            }           
+         
+            foreach ($reqMatches[0] as $value) {     
+                $req[str_replace("/", "", current($reqMatches[0]))] = str_replace("/", "", next($reqMatches[0])) ;
+                next($reqMatches[0]);
+            }
+
+            foreach ($hasMatches[0] as $value) {     
+                $has[str_replace("/", "", current($hasMatches[0]))] = str_replace("/", "", next($hasMatches[0])) ;
+                next($hasMatches[0]);
+            }
+
+            $reqKeys = array_keys($req);
+            $hasKeys = array_keys($has);
+
+            if ($reqKeys != $hasKeys) {
+                continue;
+            }          
+
+            $this->params = array_values(array_filter($req));
+            $this->params[] = $this;
+           
+            $this->route = $key;          
+        }
    	}
 }

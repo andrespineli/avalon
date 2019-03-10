@@ -44,27 +44,30 @@ class Router
     }
 
     public function run()
-    {                       
+    {                     
         if (!array_key_exists($this->request->type, $this->routes)) {
             echo "Undefined route";
             return;
         }
 
+        $this->request->setRoutes($this->routes);  
+
         if (!array_key_exists($this->request->route, $this->routes[$this->request->type])) {
             echo "Route not found";
             return;
-        }       
-
+        }     
+                
         return $this->call();
     }    
 
     private function call()
-    {          
-        $class = $this->routes[$this->request->type][$this->request->route];
+    {                  
+        $class = $this->request->routes[$this->request->type][$this->request->route];
         $method = substr($class, - (strlen($class) - strpos($class, '@') - 1));
         $class = substr($class, 0, strpos($class, '@'));        
         require_once __DIR__.'\\Controllers\\'.$class.'.php';
-        $instance = new $class;
-        $instance->$method($this->request);               
+        $instance = new $class;        
+        call_user_func_array([$instance, $method], $this->request->params);
+                  
     }    
 }

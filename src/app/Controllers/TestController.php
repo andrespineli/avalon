@@ -4,9 +4,9 @@
 
 class TestController
 {
-    public function testOne($request)
+    public function testOne($name, $age, $request)
     {
-        echo "<pre>Hello, Test One its ok!</pre>";
+        echo "Olá {$name}, você tem {$age} anos";
         return $request->all();
     }
 
