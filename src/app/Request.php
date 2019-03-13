@@ -89,8 +89,7 @@ class Request
             }          
 
             $this->params = array_values(array_filter($req));
-            $this->params[] = $this;
-           
+            $this->params[] = $this;           
             $this->route = $key;          
         }
    	}

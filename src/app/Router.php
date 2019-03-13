@@ -5,14 +5,10 @@ use App\Controllers;
 use App\Request;
 
 class Router
-{
-    private $server;
-    private $post;
-    private $routes = [];
-    private $reqRoute;
-    private $reqType;
+{    
+    private $routes = [];   
     private $request;
-  
+
     public function __construct()
     {        
         $this->request = new Request;             
@@ -45,18 +41,16 @@ class Router
 
     public function run()
     {                     
-        if (!array_key_exists($this->request->type, $this->routes)) {
-            echo "Undefined route";
-            return;
+        if (!array_key_exists($this->request->type, $this->routes)) {          
+            return response(["Undefined route"], 422);            
         }
 
         $this->request->setRoutes($this->routes);  
 
-        if (!array_key_exists($this->request->route, $this->routes[$this->request->type])) {
-            echo "Route not found";
-            return;
+        if (!array_key_exists($this->request->route, $this->routes[$this->request->type])) {           
+            return response(["Route not found"], 404);                 
         }     
-                
+
         return $this->call();
     }    
 
@@ -68,6 +62,6 @@ class Router
         require_once __DIR__.'\\Controllers\\'.$class.'.php';
         $instance = new $class;        
         call_user_func_array([$instance, $method], $this->request->params);
-                  
+
     }    
 }
