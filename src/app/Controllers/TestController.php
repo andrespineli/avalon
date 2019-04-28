@@ -1,6 +1,6 @@
 <?php
 
-//namespace App\Controllers;
+namespace App\Controllers;
 
 class TestController
 {
@@ -13,5 +13,10 @@ class TestController
     public function testTwo($request)
     {    	        
         return $request->all();
+    }
+
+    public function create($request)
+    {    	
+    	return $request->all();
     }
 }

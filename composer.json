@@ -11,6 +11,11 @@
     ],
     "require": {},
     "autoload": {
-        "psr-4": {"App\\": "src/app"}
+        "psr-4": {
+            "App\\": "src/app",
+            "Http\\": "src/kernel/Http",
+            "Config\\": "src/kernel/Config",
+            "Handler\\": "src/kernel/Handler"    
+        }
     }
 }

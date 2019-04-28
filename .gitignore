@@ -1,1 +1,7 @@
 /vendor
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/php.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/avalon.iml
