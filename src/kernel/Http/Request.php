@@ -23,7 +23,7 @@ class Request
 		$this->resolveRouteParams();
 	}
 
-	public function all()
+	public function all() 
 	{
 		return $this->json();
 	}
@@ -58,7 +58,7 @@ class Request
    		if (!$this->body) {
    			return;
    		}
-   		return json_encode($this->body, JSON_PRETTY_PRINT);
+   		return $this->body;
    	}
 
     public function array()

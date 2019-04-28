@@ -4,19 +4,10 @@ namespace App\Controllers;
 
 class TestController
 {
-    public function testOne($name, $age, $request)
+    public function post($request)
     {
-        echo "Olá {$name}, você tem {$age} anos";
-        return $request->all();
+        return $request->json();
+        return $request->array();
     }
-
-    public function testTwo($request)
-    {    	        
-        return $request->all();
-    }
-
-    public function create($request)
-    {    	       
-    	render('test', $request->array());
-    }
+  
 }
