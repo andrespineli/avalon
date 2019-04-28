@@ -21,7 +21,7 @@ function env($key = "")
 	}
 }
 
-function render($view, $data)
+function render($view, $data = [])
 {
 	$template = new Template;
 	$template->render($view, $data);
