@@ -6,9 +6,7 @@ class Env
 {
 	public static function read()
 	{	
-	
-		$dir = __DIR__."\..\\..\\..\\.env";
-		$vars = file($dir);
+		$vars = file(__ENV__);
 
 		foreach ($vars as $var) {
 

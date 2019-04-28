@@ -6,7 +6,9 @@ class Error
 {
 	private $code;
 	private $type;
-	private $error;
+	private $message;
+	private $file;
+	private $line;
 	private $template;
 
 	public function handler()
@@ -17,15 +19,14 @@ class Error
 			return;
 		}
 
-		$this->error['message'] = str_replace("#", "<br>#", $this->error['message']);
+		$this->message = str_replace("#", "<br>#", $this->message);
 
 		render('error', [
 			'code' => $this->code,
 			'type' => $this->type,
-			"message" => $this->error['message'],
-			"file" => $this->error['file'],
-			"line" => $this->error['line'],
-			"title" => env('APP_NAME')
+			"message" => $this->message,
+			"file" => $this->file,
+			"line" => $this->line
 		]);
 	}
 
@@ -51,9 +52,11 @@ class Error
 
 	private function setError($code, $type, $error)
 	{
-		$this->code = $code;
-		$this->type = $type;
-		$this->error = $error;
+		$this->code = $code ? $code : "Unknow Code";
+		$this->type = $type ? $type : "Unknow Type";
+		$this->file = array_key_exists('file', $error) ? $error['file'] : "Unknow File";
+		$this->line = array_key_exists('line', $error) ? $error['line'] : "Unknow Line";
+		$this->message = array_key_exists('message', $error) ? $error['message'] : "Unknow Message";		
 		$this->handler();
 	}
 }

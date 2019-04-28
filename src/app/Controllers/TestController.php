@@ -16,7 +16,7 @@ class TestController
     }
 
     public function create($request)
-    {    	
-    	return $request->all();
+    {    	       
+    	render('test', $request->array());
     }
 }

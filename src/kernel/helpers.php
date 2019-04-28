@@ -4,6 +4,7 @@ use Http\Request;
 use Http\Response;
 use Config\Env;
 use Config\Template;
+use Config\Path;
 
 function response($data, $code = null)
 {

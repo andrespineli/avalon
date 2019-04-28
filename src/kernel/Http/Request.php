@@ -25,12 +25,12 @@ class Request
 
 	public function all()
 	{
-		echo $this->json($this->body);
+		return $this->json();
 	}
 
 	public function get($field)
 	{
-		echo $this->json($this->body[$field]);
+		return $this->body[$field];
 	}
 
 	private function setRequestData()
@@ -53,13 +53,21 @@ class Request
         }
     }    
 
-   	private function json($data)
+   	public function json()
    	{
-   		if (!$data) {
+   		if (!$this->body) {
    			return;
    		}
-   		return json_encode($data, JSON_PRETTY_PRINT);
+   		return json_encode($this->body, JSON_PRETTY_PRINT);
    	}
+
+    public function array()
+    {
+        if (!$this->body) {
+        return;
+        }
+        return (array)$this->body;
+    }
 
    	private function resolveRouteParams()
    	{

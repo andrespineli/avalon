@@ -2,17 +2,20 @@
 
 namespace Config;
 
+use Config\Path;
+
 class Template
 {
 	private $view;
 
 	public function render($view, $data)
 	{		
-		//define("TEMPLATES_FOLDER", __DIR__."..\\..\\templates\{$template}.html");
+		$templates = __TEMPLATES__;
+		$index = "{$templates}/index.html";
+		$path = "{$templates}/$view.html";
 
-		///echo TEMPLATES_FOLDER;
-		$index = __DIR__."\\..\\..\\templates\\index.html";
-		$path = __DIR__."\\..\\..\\templates\\$view.html";
+		$index = Path::handler($index);
+		$path = Path::handler($path);
 
 		$this->index = file_get_contents($index);	
 		$this->view = file_get_contents($path);	

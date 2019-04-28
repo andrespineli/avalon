@@ -57,8 +57,8 @@ class Router
     {                
         $class = $this->request->routes[$this->request->type][$this->request->route];
         $method = substr($class, - (strlen($class) - strpos($class, '@') - 1));
-        $class = substr($class, 0, strpos($class, '@'));        
-        $class = "App\\Controllers\\{$class}";      
+        $class = substr($class, 0, strpos($class, '@'));     
+        $class = __CONTROLLERS__.$class;      
         $instance = new $class;        
         $return = call_user_func_array([$instance, $method], $this->request->params);    
         $response = response($return);
