@@ -72,33 +72,36 @@ class Request
    	private function resolveRouteParams()
    	{
    		foreach ($this->routes[$this->type] as $key => $value) {
-            preg_match_all('/\/[a-z0-9]*/', $this->route, $reqMatches); 
-            preg_match_all('/\/[{a-z0-9}]*/', $key, $hasMatches);      
+            preg_match_all('/\/[A-Za-z0-9]*/', $this->route, $reqMatches); 
+            preg_match_all('/\/[{A-Za-z0-9}]*/', $key, $hasMatches);     
 
             if (count($reqMatches[0]) != count($hasMatches[0])) {
                 continue;
-            }           
-         
-            foreach ($reqMatches[0] as $value) {     
-                $req[str_replace("/", "", current($reqMatches[0]))] = str_replace("/", "", next($reqMatches[0])) ;
-                next($reqMatches[0]);
-            }
+            }     
 
-            foreach ($hasMatches[0] as $value) {     
-                $has[str_replace("/", "", current($hasMatches[0]))] = str_replace("/", "", next($hasMatches[0])) ;
-                next($hasMatches[0]);
-            }
+            $req = $this->resolveMatches($reqMatches[0]);     
+            $has = $this->resolveMatches($hasMatches[0]);            
 
             $reqKeys = array_keys($req);
             $hasKeys = array_keys($has);
 
             if ($reqKeys != $hasKeys) {
                 continue;
-            }          
+            }                      
 
             $this->params = array_values(array_filter($req));
             $this->params[] = $this;           
             $this->route = $key;          
         }
    	}
+
+    private function resolveMatches($data)
+    {
+        foreach ($data as $value) {     
+            $matches[str_replace("/", "", current($data))] = str_replace("/", "", next($data)) ;
+            next($data);
+        }
+
+        return $matches;
+    }
 }

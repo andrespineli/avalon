@@ -9,5 +9,10 @@ class TestController
         return $request->json();
         return $request->array();
     }
+
+    public function get($name)
+    {
+        return render('hello', ['name' => $name]);
+    }
   
 }
