@@ -15,7 +15,8 @@
             "App\\": "src/app",
             "Http\\": "src/kernel/Http",
             "Config\\": "src/kernel/Config",
-            "Handler\\": "src/kernel/Handler"    
+            "Handler\\": "src/kernel/Handler",
+            "Database\\": "src/kernel/Database"
         }
     }
 }

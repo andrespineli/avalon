@@ -11,7 +11,7 @@ class Error
 	private $line;
 	private $template;
 
-	public function handler()
+	public function handler($errno, $errstr, $errfile, $errline, $type)
 	{
 		$debug = filter_var(env('APP_DEBUG'), FILTER_VALIDATE_BOOLEAN);
 		 
@@ -19,44 +19,48 @@ class Error
 			return;
 		}
 
-		$this->message = str_replace("#", "<br>#", $this->message);
+		$errstr = str_replace("#", "<br>#", $errstr);
 
 		render('error', [
-			'code' => $this->code,
-			'type' => $this->type,
-			"message" => $this->message,
-			"file" => $this->file,
-			"line" => $this->line
+			'code' => $errno,
+			'type' => $type,
+			"message" => $errstr,
+			"file" => $errfile,
+			"line" => $errline,
+			"trace" => $errstr,
+			"php_version" => PHP_VERSION,
+			"php_os" => PHP_OS
 		]);
+
+		return true;
 	}
 
 	public function shutdownHandler()
-	{
-		$last_error = error_get_last();	
-
+	{						
+		$last_error = error_get_last();		
+		
 		switch ($last_error['type']) {
 
 			case E_ERROR:
-				$this->setError(E_ERROR, 'Fatal Error', $last_error);
+				$type = "Fatal Error.";
+				$this->handler(E_ERROR, $last_error['message'], $last_error['file'], $last_error['line'], $type);
 				break;
 
 			case E_WARNING:
-				$this->setError(E_WARNING, 'Warning', $last_error);
+				$type = "Run-time Warning.";
+				$this->handler(E_WARNING, $last_error['message'], $last_error['file'], $last_error['line'], $type);
 				break;
 
-			case E_PARSE:
-				$this->setError(E_PARSE, 'Compile-time Error', $last_error);
-				break;		
+			case E_PARSE:			
+				$type = "Compile time parse error.";
+				$this->handler(E_PARSE, $last_error['message'], $last_error['file'], $last_error['line'], $type);
+				break;	
+
+			case E_NOTICE:
+				$type = "Run time Notice.";
+	       		$this->handler(E_NOTICE, $last_error['message'], $last_error['file'], $last_error['line'], $type);
+				break;				
 		}
 	}	
 
-	private function setError($code, $type, $error)
-	{
-		$this->code = $code ? $code : "Unknow Code";
-		$this->type = $type ? $type : "Unknow Type";
-		$this->file = array_key_exists('file', $error) ? $error['file'] : "Unknow File";
-		$this->line = array_key_exists('line', $error) ? $error['line'] : "Unknow Line";
-		$this->message = array_key_exists('message', $error) ? $error['message'] : "Unknow Message";		
-		$this->handler();
-	}
 }

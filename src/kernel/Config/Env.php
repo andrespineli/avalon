@@ -18,6 +18,7 @@ class Env
 
 			$env[$key] = trim($value);
 		}
+
 	
 		return $env;
 	}		
