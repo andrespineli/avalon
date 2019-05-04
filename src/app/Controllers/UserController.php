@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Mappers\UserMapper;
+use App\DAO\UserDAO;
+use App\DTO\UserDTO;
 
 use App\Models\User;
 
@@ -10,13 +11,13 @@ class UserController
 {
     public function store($request)
     {
+        $user = new User;          
 
-        $user = new User;
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
+        $user->dto->name = $request->get('name');
+        $user->dto->email = $request->get('email');
 
-        $mapper = new UserMapper($user);
-        $result = $mapper->store($request->array());
+        $userDAO = new UserDAO($user);
+        $result = $userDAO->store();
              
         response($result);     
 

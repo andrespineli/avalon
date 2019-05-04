@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Models\Model;
+use Database\ORM\DataMapper\DataTransferObject;
 
 class User extends Model
 {
+	use DataTransferObject;
+
 	protected $pk = 'id';
 	protected $table = 'users';
 
@@ -14,7 +17,6 @@ class User extends Model
 		'name',
 		'email'
 	];
-	
 
 	// public function create($data)
 	// {

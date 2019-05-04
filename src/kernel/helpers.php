@@ -30,13 +30,3 @@ function render($view, $data = [])
 	$template = new Template;
 	$template->render($view, $data);
 }
-
-function dbConfig()
-{
-	return [
-		'host'=> env('DB_HOST'),
-		'db' => env('DB_NAME'),
-		'username' => env('DB_USER'),
-		'password' => env('DB_PASS')
-	];
-}

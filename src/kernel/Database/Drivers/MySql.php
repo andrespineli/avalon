@@ -44,7 +44,7 @@ class MySql implements IDriver
 	}
 
 	public function execute(String $query)
-	{
+	{			
 		$this->stmt = $this->pdo->prepare($query);	
 		$exec = $this->stmt->execute();	
 
