@@ -4,27 +4,19 @@ namespace Database\ORM\DataMapper;
 
 trait DataTransferObject
 {	
-	public $dto;
-	public $config;
+	public $dto;	
 
 	protected function useDto()
 	{
-		$this->setAttributes();	
-		$this->setConfig();			
+		$this->setFillableAttributes();					
 	}
 
-	protected function setAttributes()
+	protected function setFillableAttributes()
 	{	
-		foreach ($this->fillable as $field) {
-			$this->dto->$field = "";
+		$this->dto = new \stdClass();
+		
+		foreach ($this->fillable as $field) {			
+			$this->dto->$field = null;
 		}		
-	}
-
-	protected function setConfig()
-	{
-		$this->config->model = $this->model;
-		$this->config->fillable = $this->fillable;
-		$this->config->table = $this->table;
-		$this->config->pk = $this->pk;		
 	}
 }

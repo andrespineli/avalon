@@ -10,5 +10,5 @@ interface IDriver
 	public function connect();
 	public function disconnect();
 	public function execute(String $query);
-	public function lastInsertId();
+	public function lastId();
 }

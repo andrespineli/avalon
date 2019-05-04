@@ -49,13 +49,13 @@ class MySql implements IDriver
 		$exec = $this->stmt->execute();	
 
 		if (!$exec) {
-			throw new \Exception("Failed to perform database operation", 0001);	
+			throw new \Exception("Failed to perform query or not found register", 0001);	
 		}
 
-		return $this->stmt->fetch(\PDO::FETCH_ASSOC);		
+		return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);		
 	}
 
-	public function lastInsertId()
+	public function lastId()
 	{
 		return $this->pdo->lastInsertId();
 	}

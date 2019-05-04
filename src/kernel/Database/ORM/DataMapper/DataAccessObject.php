@@ -13,15 +13,21 @@ trait DataAccessObject
 
 	protected function entity($model)
 	{
+		$config = [
+			"fillable" => $model->getFillable(),
+			"table" => $model->getTable(),
+			"pk" => $model->getPk()
+		];
+
 		$this->model = $model;	
 		$this->dto = $model->dto;	
-		$this->configRepository();
+		$this->configRepository($config);
 		$this->attributes();
 	}	
 
-	private function configRepository()
+	private function configRepository($config)
 	{	
-		$this->repository = new Repository($this->model->config);
+		$this->repository = new Repository($config);
 	}
 
 	protected function attributes()

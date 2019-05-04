@@ -17,9 +17,4 @@ class User extends Model
 		'name',
 		'email'
 	];
-
-	// public function create($data)
-	// {
-	// 	return $this->mapper->insert($data);
-	// }
 }

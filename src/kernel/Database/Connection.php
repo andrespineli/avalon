@@ -3,12 +3,10 @@
 namespace Database;
 
 use Database\Drivers\MySql;
-use Database\ORM\QueryBuilder\MySqlBuilder;
 
 class Connection
 {		
 	private $db;
-	private $builder;
 
 	public function __construct()
 	{
@@ -18,11 +16,6 @@ class Connection
 	public function getDb()
 	{
 		return $this->db;
-	}
-
-	public function getBuilder()
-	{
-		return $this->builder;
 	}
 
 	private function conn()
@@ -37,8 +30,13 @@ class Connection
 
 	private function mysql()
 	{
-		$this->db = new MySql($this->conn());
-		$this->builder = new MySqlBuilder();		
+		$this->db = new MySql($this->conn());			
+	}
+
+	private function mssql()
+	{
+		$this->db = null;
+		$this->builder = null;	
 	}
 
 	
