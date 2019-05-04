@@ -9,6 +9,6 @@ interface IDriver
 	public function setConfig(Array$config);
 	public function connect();
 	public function disconnect();
-	public function execute(String $query);
+	public function execute(String $query, Array $values = null);
 	public function lastId();
 }

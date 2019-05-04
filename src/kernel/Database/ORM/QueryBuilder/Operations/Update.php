@@ -13,15 +13,12 @@ class Update extends Operation implements IOperation
 	public function sql()
 	{	
 		$this->validate();
-		
-		foreach ($this->fields as $key => $value) {
-			$set[] = is_string($value) ? "{$key}='{$value}'" : "{$key}={$value}";
-		}
 
-		$set = implode(",", $set);	
+		$set = $this->getPdoEqualsStringParams();
 
 		$query = "UPDATE %s SET %s WHERE 1=1";
 		$this->query = sprintf($query, $this->table, $set);	
+		$this->values = $this->fields;
 		return $this;	
 	}	
 	

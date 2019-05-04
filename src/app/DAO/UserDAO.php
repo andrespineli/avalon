@@ -14,6 +14,11 @@ class UserDAO
 		$this->entity($user);
 	}		
 
+	public function get()
+	{
+		return $this->repository->all()->get();
+	}
+
 	public function find($id)
 	{
 		$register = $this->repository->find($id);		

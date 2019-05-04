@@ -43,10 +43,10 @@ class MySql implements IDriver
 		$this->pdo = null;
 	}
 
-	public function execute(String $query)
-	{			
+	public function execute(String $query, Array $values = null)
+	{					
 		$this->stmt = $this->pdo->prepare($query);	
-		$exec = $this->stmt->execute();	
+		$exec = $this->stmt->execute($values);	
 
 		if (!$exec) {
 			throw new \Exception("Failed to perform query or not found register", 0001);	

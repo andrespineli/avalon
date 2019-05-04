@@ -13,6 +13,7 @@ class Repository
 	private $table;
 	private $pk;
 	private $result;
+	private $values;
 
 	public function __construct($config)
 	{
@@ -104,6 +105,6 @@ class Repository
 
 	public function exec($build)
 	{						
-		return $this->db->execute($build->query());	
+		return $this->db->execute($build->query(), $build->values());	
 	}
 }

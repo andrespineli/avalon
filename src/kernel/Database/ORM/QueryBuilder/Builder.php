@@ -47,7 +47,7 @@ class Builder implements IBuilder
 	}
 
 	public function update(Array $data)
-	{
+	{		
 		$update = new Update($data);
 		$this->query = $update->table($this->table)->sql();			
 		return $this;			
@@ -75,5 +75,10 @@ class Builder implements IBuilder
 	public function query()
 	{		
 		return $this->query->get();
+	}
+
+	public function values()
+	{
+		return $this->query->values();
 	}
 }

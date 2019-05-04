@@ -9,6 +9,16 @@ use App\Models\User;
 
 class UserController
 {
+    public function get()
+    {
+        $user = new User;         
+                
+        $userDAO = new UserDAO($user);
+        $result = $userDAO->get();
+
+        response($result);     
+    }
+
 	public function find($id)
 	{
 		$user = new User;         
@@ -37,6 +47,7 @@ class UserController
     {    	
     	$user = new User;          
 
+        $user->dto->id = $request->get('id');
         $user->dto->name = $request->get('name');
         $user->dto->email = $request->get('email');
 
