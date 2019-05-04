@@ -30,18 +30,18 @@ class Repository
 
 	public function select($data)
 	{
-		$query = $this->builder->select($data)->query();		
+		$query = $this->builder->select($data);		
 		return $this->exec($query);
 	}
 
 	public function insert($data)
 	{
-		$query = $this->builder->insert($data)->query();		
+		$query = $this->builder->insert($data);		
 		$result = $this->exec($query);
 
 		$inserted = $this->builder->select($this->fillable)->where(
 			$this->pk, '=', $this->db->lastInsertId()
-		)->query();		
+		);		
 
 		return $this->exec($inserted);
 	}
@@ -56,8 +56,8 @@ class Repository
 
 	}		
 
-	public function exec($query)
+	public function exec($build)
 	{			
-		return $this->db->execute($query);	
+		return $this->db->execute($build->query());	
 	}
 }
