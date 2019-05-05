@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\ORM\Repository;
+namespace Database\ORM;
 
 use Database\Connection;
 use Database\ORM\QueryBuilder\MySqlBuilder;

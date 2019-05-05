@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Database\ORM;
 
 class Model
 {	
-	public function __construct()
-	{		
-		$this->useDto();
-	}	
-
 	public function getFillable()
 	{
 		return $this->fillable;
@@ -22,6 +17,15 @@ class Model
 	public function getPk()
 	{
 		return $this->pk;
+	}
+
+	public function getConfig()
+	{
+		return [
+			"fillable" => $this->getFillable(),
+			"table" => $this->getTable(),
+			"pk" => $this->getPk()
+		];
 	}
 
 	protected function setFillableAttributes()

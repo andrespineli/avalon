@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Model;
+use Database\ORM\Model;
 use Database\ORM\DataMapper\DataTransferObject;
 
 class User extends Model

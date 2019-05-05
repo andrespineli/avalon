@@ -4,11 +4,16 @@ namespace Database\ORM\DataMapper;
 
 trait DataTransferObject
 {	
-	public $dto;	
+	public $dto;
 
-	protected function useDto()
+	public function __construct()
 	{
-		$this->setFillableAttributes();					
+		$this->setFillableAttributes();		
+	}	
+	
+	public function getDto()
+	{
+		return $this->dto;
 	}
 
 	protected function setFillableAttributes()

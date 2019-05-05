@@ -2,36 +2,26 @@
 
 namespace Database\ORM\DataMapper;
 
-use Database\ORM\Repository\Repository;
+use Database\ORM\Repository;
 
 trait DataAccessObject 
-{
-	protected $driver;
-	protected $model;
+{	
 	protected $repository;
 	private $dto;
 
-	protected function entity($model)
+	public function __construct($model)
 	{
-		$config = [
-			"fillable" => $model->getFillable(),
-			"table" => $model->getTable(),
-			"pk" => $model->getPk()
-		];
+		$this->setRepository($model->getConfig());
+		$this->setDto($model->getDto());
+	}
 
-		$this->model = $model;	
-		$this->dto = $model->dto;	
-		$this->configRepository($config);
-		$this->attributes();
-	}	
-
-	private function configRepository($config)
+	private function setRepository($config)
 	{	
 		$this->repository = new Repository($config);
 	}
 
-	protected function attributes()
+	protected function setDto($dto)
 	{
-		$this->dto = array_filter(get_object_vars($this->dto));		
+		$this->dto = array_filter(get_object_vars($dto));	
 	}
 }

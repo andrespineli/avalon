@@ -11,8 +11,7 @@ class WelcomeController
 
     public function hello($name)
     {
-    	render('hello', ['name' => $name]);
-    	throw new \Exception("Error Processing Request", 50);
+    	render('hello', ['name' => $name]);  	
     	   	   	
     }
 }

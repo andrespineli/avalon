@@ -7,12 +7,7 @@ use App\Models\User;
 
 class UserDAO 
 {
-	use DataAccessObject;	
-	
-	public function __construct(User $user)
-	{
-		$this->entity($user);
-	}		
+	use DataAccessObject;		
 
 	public function get()
 	{

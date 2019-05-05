@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\DAO\UserDAO;
-use App\DTO\UserDTO;
-
 use App\Models\User;
 
 class UserController
