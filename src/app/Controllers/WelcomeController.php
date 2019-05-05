@@ -14,4 +14,9 @@ class WelcomeController
     	render('hello', ['name' => $name]);  	
     	   	   	
     }
+
+    public function index()
+    {
+    	render('docs/pt-br');
+    }
 }

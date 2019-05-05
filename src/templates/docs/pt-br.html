@@ -1,0 +1,103 @@
+<section class="hero is-dark">
+	<div class="container">
+		<section class="section">
+			<center>
+				<p>Avalon</p>
+				<h1 class="title is-1"><strong><span class="avalon">DOCS</span></strong></h1>		
+			</center>		
+		</section>
+	</div>
+	  <div class="hero-body">
+	    <div class="container">
+	      <h1 class="title">
+	        Arquitetura
+	      </h1>
+	      <h2 class="subtitle" align="justify">
+	      	Avalon é um microframework PHP focado em desenvolvimento de REST APIs com propósitos educacionais que utiliza o padrão MVC para organização do código e implementa um ORM próprio que permite ao desenvolvedor escolher entre dois padrões de arquitetura propostos por Martin Fowller em 2003 no livro <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/index.html">Padrões de Arquitetura de Aplicações Corporativas</a></i>, o <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/dataMapper.html">Data Mapper</a></i> e <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/activeRecord.html">Active Record</a></i>.
+	      </h2>
+	      <br>
+	       <h1 class="title">
+	        ORM
+	      </h1>
+	      <h2 class="subtitle" align="justify">
+	      	Ambos os padrões são voltados para persistência de dados criando uma camada de abstração do banco para uma utilização no nível de código, permitindo uma interação dinamica com as operações comuns de bancos de dados, evitando a utilização de linguagem SQL.
+	      	O Avalon ORM (Object-relational mapping), permite mapear registros do banco de dados, simplificando a manipulação dos mesmos via aplicação.     
+	      </h2>
+	      <br>
+	       <h1 class="title">
+	        Query Builder
+	      </h1>
+	      <h2 class="subtitle" align="justify">
+	      	Em conjunto com o ORM o avalon implementa um query builder para gerar de forma automatizada as queries necessárias em linguagem SQL automaticamente conforme a operação solicitada pelo usuário. Todas as operações de banco executadas pelo ORM utilizam PDO e prepared statments para garantir a segurança evitando SQL Injection.
+	      </h2>	      
+	      <br>
+	       <h1 class="title">
+	        Repository
+	      </h1>
+	      <h2 class="subtitle" align="justify">
+	      	Independente do padrão utilizado o Avalon utiliza um <a href="https://martinfowler.com/eaaCatalog/repository.html"><i>Repository</i></a> para abstrair a utilização do query builder, no caso do Data Mapper, é criado um atributo $dto no modelo contendo os atributos que podem ser manipulados para que possam ser repassados para o <a href="https://en.wikipedia.org/wiki/Data_access_object"><i>DataAccessObject (DAO)</i></a> que por sua vez recebe o repository afim de criar uma camada de persistência de dados.     
+	      	Já no Active Record os atributos são automaticamente disponibilizados no prórpio modelo que também recebe o repository tornado possível a persistência, dispensando a utilização de um DTO.	
+	      	<br><br>
+	      	Básicamente a diferença prática entre a utilização dos padrões é que com Data Mapper para compor uma entidade de domínio é necessário a criação das classes de Modelo e DAO, ex: User.php (Modelo) e UserDAO.php (DAO), sendo o último o responsável pela camada de persistência de dados.
+	      	Com Active Record o próprio modelo recebe a inteligência necessária para realizar a própria persistência, dispensando a utilização do DAO.
+	      	<br>
+	      	A utilização de cada um deve ser avaliada de acordo com as necessidades da equipe e do projeto/aplicação a ser desenvolvida.
+	      </h2>
+	      <br>
+	      <h1 class="title">
+	        Modelos
+	      </h1>
+	      <h2 class="subtitle" align="justify">
+	      	Avalon disponibiliza uma classe Model genérica que permite ser extendida por modelos de domínio da aplicação.
+	      	Ao utilizar trait <a href="https://martinfowler.com/eaaCatalog/dataTransferObject.html"><i>DataTransferObject (DTO)</i></a> o framework irá preparar o modelo para que utilize o padrão Data Mapper. O mesmo ocorre para o trait Active Record, devendo o desenvolvedor utilizar apenas um deles para cada modelo, podendo utiliza-los em conjunto dede que em modelos diferentes. Além disso um modelo define qual tabela, primary key e colunas que deverão ser manipuladas pelo ORM.
+	      </h2>     
+	      
+	    </div>
+	</div>
+</section>
+<section class="hero is-light">	
+	<div class="hero-body">		 
+		<div class="container">
+			<h2 class="subtitle">Exemplo - Modelo de Usuário</h2>
+		</div>
+		<pre>			
+	  		<code>      	
+	  			*** User.php ***   
+
+				namespace App\Models;
+
+				use Database\ORM\Model;
+				use Database\ORM\DataMapper\DataTransferObject;
+				use Database\ORM\ActiveRecord\ActiveRecord;
+
+				class User extends Model
+				{
+					//use DataTransferObject;
+					//use ActiveRecord;
+
+					protected $pk = 'id';
+					protected $table = 'users';
+
+					protected $fillable = [
+						'id',
+						'name',
+						'email'
+					];
+				}
+	  		</code>
+    	</pre>	    	
+    </div>	
+</section>	
+<section class="hero is-dark">	
+	  <div class="hero-body">
+	    <div class="container">	     
+	      <h1 class="title">
+	        Controllers
+	      </h1>
+	      <h2 class="subtitle" align="justify">
+	      	Os controllers definem métodos que são disparados a partir das rotas, sendo possível inicializar lógicas de negócio, delegar responsabilidades para outras camadas conforme a necessidade/arquitetura da aplicação.
+	      </h2>
+	      
+	    </div>
+	</div>
+</section>

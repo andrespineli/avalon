@@ -37,7 +37,7 @@ class ProductController
     public function remove($id)
     {    	
     	$this->product->find($id);
-  		$this->product->delete($id);		
+  		$this->product->delete();		
 		return $this->product->get();
     }
 }

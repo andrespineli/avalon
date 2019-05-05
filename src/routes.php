@@ -5,6 +5,7 @@ use Http\Router;
 $router = new Router;
 
 $router->get('/', 'WelcomeController@welcome');
+$router->get('/docs/pt-br', 'WelcomeController@index');
 $router->get('/name/{name}', 'WelcomeController@hello');
 
 $router->get('/users', 'UserController@get');
