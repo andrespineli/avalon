@@ -4,7 +4,7 @@ namespace Database\Drivers;
 
 use Database\Drivers\IDriver;
 
-class MySql implements IDriver
+class MsSql implements IDriver
 {
 	private $pdo;
 	private $dsn;
@@ -32,7 +32,7 @@ class MySql implements IDriver
 		$this->port = $config['port'];
 		$this->username = $config['username'];
 		$this->password = $config['password'];		
-		$this->dsn = sprintf('mysql:host=%s;port=%s;dbname=%s', $this->host, $this->port, $this->db);
+		$this->dsn = sprintf('sqlsrv:Server=%s,%s;Database=%s', $this->host, $this->port, $this->db);		
 	}
 
 	public function connect()

@@ -4,11 +4,10 @@ use Http\Request;
 use Http\Response;
 use Config\Env;
 use Config\Template;
-use Config\Path;
 
 $env = Env::read();
 
-function env($key)
+function env($key, $default = "")
 {	
 	global $env;
 	
@@ -16,7 +15,7 @@ function env($key)
 		return $env[$key];
 	}
 
-	return "";
+	return $default;
 }
 
 function response($data, $code = null)
@@ -29,4 +28,9 @@ function render($view, $data = [])
 {
 	$template = new Template;
 	$template->render($view, $data);
+}
+
+function db()
+{
+	
 }

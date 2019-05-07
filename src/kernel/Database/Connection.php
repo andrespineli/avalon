@@ -3,14 +3,18 @@
 namespace Database;
 
 use Database\Drivers\MySql;
+use Config\Database;
 
 class Connection
 {		
 	private $db;
+	private $builder;
+	private $driver;
 
 	public function __construct()
 	{
-		$this->{env('DB_DRIVER')}();
+		$this->driver = Database::get();
+		$this->conn();					
 	}	
 
 	public function getDb()
@@ -18,26 +22,23 @@ class Connection
 		return $this->db;
 	}
 
+	public function getBuilder()
+	{
+		return $this->builder;
+	}
+
 	private function conn()
 	{
-		return [
-			'host'=> env('DB_HOST'),
-			'db' => env('DB_NAME'),
-			'username' => env('DB_USER'),
-			'password' => env('DB_PASS')
-		];
-	}
+		$db = $this->driver['driver'];
+		$builder = $this->driver['builder'];
+		$conn = $this->driver['config'];		
+		$this->db = new $db($conn);
+		$this->builder = new $builder();
+	}	
 
-	private function mysql()
+	public function configBuilder($config)
 	{
-		$this->db = new MySql($this->conn());			
+		$this->builder->config($config);
+		return $this->getBuilder();
 	}
-
-	private function mssql()
-	{
-		$this->db = null;
-		$this->builder = null;	
-	}
-
-	
 }

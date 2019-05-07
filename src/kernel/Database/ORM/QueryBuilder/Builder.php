@@ -17,19 +17,26 @@ class Builder implements IBuilder
 	protected $fields;
 	protected $model;
 
-	public function table(String $table)
-	{
-		$this->table = $table;
-	}
+	// public function table(String $table)
+	// {
+	// 	$this->table = $table;
+	// }
 
-	public function fillable(Array $fillable)
-	{
-		$this->fillable = $fillable;
-	}
+	// public function fillable(Array $fillable)
+	// {
+	// 	$this->fillable = $fillable;
+	// }
 
-	public function primaryKey(String $pk)
+	// public function primaryKey(String $pk)
+	// {
+	// 	$this->pk = $pk;
+	// }
+
+	public function config(Array $config)
 	{
-		$this->pk = $pk;
+		$this->table = $config['table'];
+		$this->fillable = $config['fillable'];
+		$this->pk = $config['pk'];
 	}
 
 	public function select(Array $fields = ['*'])

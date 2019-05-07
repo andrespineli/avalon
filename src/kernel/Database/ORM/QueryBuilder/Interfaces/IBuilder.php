@@ -4,7 +4,7 @@ namespace Database\ORM\QueryBuilder\Interfaces;
 
 interface IBuilder
 {
-	public function table(String $table);
+	public function config(Array $config);
 	public function select(Array $fields);
 	public function insert(Array $fields);
 	public function update(Array $data);

@@ -3,39 +3,28 @@
 namespace Database\ORM;
 
 use Database\Connection;
-use Database\ORM\QueryBuilder\MySqlBuilder;
 
 class Repository
 {
 	private $builder;
 	private $db;
-	private $fillable;
-	private $table;
+	private $fillable;	
 	private $pk;
 	private $result;
 	private $values;
 
-	public function __construct($config)
+	public function __construct(Array $config)
 	{
-		$this->fillable = $config["fillable"];
-		$this->table = $config["table"];
+		$this->fillable = $config["fillable"];		
 		$this->pk = $config["pk"];		
-		$this->connect();
-		$this->configBuilder();
+		$this->connect($config);		
 	}
 
-	public function connect()
+	public function connect($config)
 	{
 		$conn = new Connection;		
 		$this->db = $conn->getDb();
-		$this->builder = new MySqlBuilder;		
-	}
-
-	public function configBuilder()
-	{
-		$this->builder->table($this->table);
-		$this->builder->fillable($this->fillable);
-		$this->builder->primaryKey($this->pk);
+		$this->builder = $conn->configBuilder($config);		
 	}
 
 	public function all()
@@ -104,7 +93,7 @@ class Repository
 	}
 
 	public function exec($build)
-	{						
+	{								
 		return $this->db->execute($build->query(), $build->values());	
 	}
 }
