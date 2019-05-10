@@ -14,7 +14,7 @@ class UserController
         $userDAO = new UserDAO($user);
         $result = $userDAO->get();
 
-        response($result);     
+        return $result;     
     }
 
 	public function find($id)

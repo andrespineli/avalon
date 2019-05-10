@@ -20,4 +20,6 @@ $router->post('/products', 'ProductController@store');
 $router->put('/products/{id}', 'ProductController@update');
 $router->delete('/products/{id}', 'ProductController@remove');
 
+$router->get('/tests/unit', 'TestController@unit');
+
 $router->run();

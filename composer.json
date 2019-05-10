@@ -12,11 +12,13 @@
     "require": {},
     "autoload": {
         "psr-4": {
+            "Tests\\": "tests",
             "App\\": "src/app",
             "Http\\": "src/kernel/Http",
             "Config\\": "src/kernel/Config",
             "Handler\\": "src/kernel/Handler",
             "Database\\": "src/kernel/Database"
+           
         }
     }
 }
