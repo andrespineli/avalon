@@ -5,7 +5,7 @@ use Http\Router;
 $router = new Router;
 
 $router->get('/', 'WelcomeController@welcome');
-$router->get('/docs/pt-br', 'WelcomeController@index');
+$router->get('/docs/pt-br', 'WelcomeController@ptBR');
 $router->get('/name/{name}', 'WelcomeController@hello');
 
 $router->get('/users', 'UserController@get');
@@ -19,7 +19,5 @@ $router->get('/products/{id}', 'ProductController@find');
 $router->post('/products', 'ProductController@store');
 $router->put('/products/{id}', 'ProductController@update');
 $router->delete('/products/{id}', 'ProductController@remove');
-
-$router->get('/tests/unit', 'TestController@unit');
 
 $router->run();

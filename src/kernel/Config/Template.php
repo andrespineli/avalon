@@ -28,7 +28,10 @@ class Template
 	private function bindTemplateData($data)
 	{				
 		foreach ($data as $key => $value) {
-			if (!is_array($value)) {				
+			if (!is_array($value)) {		
+				if (strpos($value, '?php')) {
+					$value = highlight_string($value, true);
+				}				
 				$this->view = str_replace('{'.$key.'}', $value, $this->view);				
 			}			
 		}

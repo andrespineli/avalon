@@ -1,3 +1,15 @@
 .avalon {
 	font-size: 100px !important;
 }
+
+.code-php {
+	font-size: 14px;
+}
+
+.dark {
+	color: #000000 !important;
+}
+
+.hero-body {
+	padding: 1.5rem 1.5rem !important;
+}

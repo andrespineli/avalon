@@ -13,7 +13,7 @@
 	        Arquitetura
 	      </h1>
 	      <h2 class="subtitle" align="justify">
-	      	Avalon é um microframework PHP focado em desenvolvimento de REST APIs com propósitos educacionais que utiliza o padrão MVC para organização do código e implementa um ORM próprio que permite ao desenvolvedor escolher entre dois padrões de arquitetura propostos por Martin Fowller em 2003 no livro <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/index.html">Padrões de Arquitetura de Aplicações Corporativas</a></i>, o <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/dataMapper.html">Data Mapper</a></i> e <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/activeRecord.html">Active Record</a></i>.
+	      	Avalon é um microframework PHP focado em desenvolvimento de REST APIs com propósitos educacionais que utiliza o padrão MVC para organização do código e implementa um ORM (Object-relational mapping) próprio que permite ao desenvolvedor escolher entre dois padrões de arquitetura propostos por Martin Fowller em 2003 no livro <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/index.html">Padrões de Arquitetura de Aplicações Corporativas</a></i>, o <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/dataMapper.html">Data Mapper</a></i> e <i><a target="_blank" href="https://martinfowler.com/eaaCatalog/activeRecord.html">Active Record</a></i>.
 	      </h2>
 	      <br>
 	       <h1 class="title">
@@ -21,7 +21,7 @@
 	      </h1>
 	      <h2 class="subtitle" align="justify">
 	      	Ambos os padrões são voltados para persistência de dados criando uma camada de abstração do banco para uma utilização no nível de código, permitindo uma interação dinamica com as operações comuns de bancos de dados, evitando a utilização de linguagem SQL.
-	      	O Avalon ORM (Object-relational mapping), permite mapear registros do banco de dados, simplificando a manipulação dos mesmos via aplicação.     
+	      	O Avalon ORM, permite mapear registros do banco de dados, simplificando a manipulação dos mesmos via aplicação.     
 	      </h2>
 	      <br>
 	       <h1 class="title">
@@ -58,43 +58,32 @@
 	      	Avalon disponibiliza uma classe Model genérica que permite ser extendida por modelos de domínio da aplicação.
 	      	Ao utilizar trait <a href="https://martinfowler.com/eaaCatalog/dataTransferObject.html"><i>DataTransferObject (DTO)</i></a> o framework irá preparar o modelo para que utilize o padrão Data Mapper. O mesmo ocorre para o trait Active Record, devendo o desenvolvedor utilizar apenas um deles para cada modelo, podendo utiliza-los em conjunto dede que em modelos diferentes. Além disso um modelo define qual tabela, primary key e colunas que deverão ser manipuladas pelo ORM.
 	      </h2>     
-	      
+	      <section class="hero is-light">	
+				<div class="hero-body">		 
+					<h2 class="subtitle dark">Exemplo utilizando Data Mapper</h2>		
+					<div class="container">							
+						<p><strong>Modelo requer a utilização do trait "DataTransferObject".</strong></p>		
+						<br>	
+						<div class="code-php">{movie}</div>
+						<br> 
+						<br>
+						<p><strong>Tornando-se necessário implementar a classe UserDAO.</strong></p>	
+						<br>					
+						<div class="code-php">{movieDAO}</div>
+						<br>	
+						<h2 class="subtitle dark">Exemplo utilizando Active Record</h2>	
+						<p><strong>Modelo requer a utilização do trait "ActiveRecord"</strong></p>		
+						<br>		
+						<div class="code-php">{music}</div>
+						<br> 			
+					</div>			
+			    	   	
+			    </div>	
+			</section>	
 	    </div>
 	</div>
 </section>
-<section class="hero is-light">	
-	<div class="hero-body">		 
-		<div class="container">
-			<h2 class="subtitle">Exemplo - Modelo de Usuário</h2>
-		</div>
-		<pre>			
-	  		<code>      	
-	  			*** User.php ***   
 
-				namespace App\Models;
-
-				use Database\ORM\Model;
-				use Database\ORM\DataMapper\DataTransferObject;
-				use Database\ORM\ActiveRecord\ActiveRecord;
-
-				class User extends Model
-				{
-					//use DataTransferObject;
-					//use ActiveRecord;
-
-					protected $pk = 'id';
-					protected $table = 'users';
-
-					protected $fillable = [
-						'id',
-						'name',
-						'email'
-					];
-				}
-	  		</code>
-    	</pre>	    	
-    </div>	
-</section>	
 <section class="hero is-dark">	
 	  <div class="hero-body">
 	    <div class="container">	     
@@ -104,13 +93,71 @@
 	      <h2 class="subtitle" align="justify">
 	      	Os controllers definem métodos que são disparados a partir das rotas, sendo possível inicializar lógicas de negócio, delegar responsabilidades para outras camadas conforme a necessidade/arquitetura da aplicação.
 	      </h2>
+		    <section class="hero is-light">	
+				<div class="hero-body">		 
+					<div class="container">
+						<h2 class="subtitle dark">Exemplo utilizando Data Mapper</h2>			
+						<p><strong>Controller requer a instancia do DAO</strong></p>		
+						<br>	
+						<div class="code-php">{movieController}</div>
+						<br> 
+						<br>				
+						<h2 class="subtitle dark">Exemplo utilizando Active Record</h2>	
+						<p><strong>Controller pode instanciar diretamente o model e utilizar o repository.</strong></p>		
+						<br>		
+						<div class="code-php">{musicController}</div>
+						<br> 			
+					</div>		  	
+			    </div>	
+			</section>
 	      <br>
 	       <h1 class="title">
 	        Template Engine
 	      </h1>
 	      <h2 class="subtitle" align="justify">
-	      	O framework possúi um template engine simples que permite isolar templates .html do código PHP, podendo facilmente renderiza-los em praticamente qualquer local da aplicação e ainda realizar bind de variaveis a serem exibidas.
+	      	O framework possúi um template engine simples que permite isolar templates .html do código PHP, podendo facilmente renderiza-los em praticamente qualquer local da aplicação e ainda realizar bind de variaveis a serem exibidas. É possível definir um template/view .html no diretório templates e chama-lo através do método render("view-name", $bindArray).
 	      </h2>
+	      <section class="hero is-light">	
+				<div class="hero-body">		 
+					<div class="container">
+						<h2 class="subtitle dark">Render</h2>			
+						<p><strong>Recebe o nome da view e um array de parametros de bind.</strong></p>		
+						<br>	
+						<div class="code-php">{render}</div>
+						<br> 			
+						<br> 			
+						<p><strong>No html é possível utilizar as variaveis com o mesmo nome das chaves do array de bind.</strong></p>		
+						<br>
+						<div class="code-php">{view}</div>
+					</div>		  	
+			    </div>	
+			</section>
+
+	      <br>
+	       <h1 class="title">
+	       Roteamento
+	      </h1>
+	      <h2 class="subtitle" align="justify">
+	      	O avalon utiliza um sistema de roteamento amigavel para registrar suas rotas e definir quais controllers e seus respectivos métodos serão executados, possibilitando a utilização dos verbos HTTP mais comuns (GET, POST, PUT, DELETE).
+	      </h2>
+	      <section class="hero is-light">	
+				<div class="hero-body">		 
+					<div class="container">
+						<h2 class="subtitle dark">routes.php</h2>			
+						<p><strong>Registra as rotas de acordo com o verbo HTTP</strong></p>		
+						<br>	
+						<div class="code-php">{routes}</div>
+						<br> 			
+						<br> 			
+					</div>		  	
+			    </div>	
+			</section>
+
+			 <br>
+	     
+	      <h1 class="subtitle is-6" align="center">
+	      	Avalon Framework | www.avalonframework.com
+	      </h1>
 	      
 	    </div>
 	</div>
