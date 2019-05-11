@@ -1,0 +1,38 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__.'/src/kernel/cli-bootstrap.php';
+
+use Tests\Unit;
+
+for ($i=1; $i < count($argv); $i++) { 
+	commandHandler($argv[$i]);
+}
+
+function commandHandler($cmd)
+{
+	switch ($cmd) {
+		case 'test':
+			testsRun();
+			break;
+		
+		default:
+			cli_print("Command '{$cmd}' not found.");
+			cli_help();
+			break;
+	}
+}
+
+function testsRun()
+{
+	$unit = new Unit();
+	$unit->run();
+}
+
+function cli_help()
+{
+	cli_separator("Avalon cli helper", 60);
+	cli_print("Sintax: php avalon <command>");
+	cli_print("Avaiable commands:");
+	cli_print("test | Run a test suit.");
+}
