@@ -3,10 +3,10 @@
 use Config\Path;
 
 $config = [
-	"models_namespace" => "App/Models/",
-	"dao_namespace" => "App/DAO",
-	"controllers_namespace" => "App/Controllers/",
-	"services_namespace" => "App/Services/",
+	"models_namespace" => "App\\Models\\",
+	"dao_namespace" => "App\\DAO",
+	"controllers_namespace" => "App\\Controllers\\",
+	"services_namespace" => "App\\Services\\",
 	"models_path" => "src/app/Models/",
 	"dao_path" => "src/app/DAO",	
 	"controllers_path" => "src/app/Controllers/",

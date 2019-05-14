@@ -29,6 +29,6 @@ class Path
 
 	private static function replaceSlash($value)
 	{
-		return str_replace("/", "\\", $value);
+		return str_replace("/", "/", $value);
 	}
 }
