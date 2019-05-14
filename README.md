@@ -26,4 +26,4 @@ composer install
 This project does not use any third party library, its purpose is to reimplement features and concepts of market frameworks for educational purposes.
 
 The use of this framework in production is not recommended, the features and functionalities can undergo changes without previous warning,
-more information available at https://avalonframework.com
+more information available at http://avalonframework.com
