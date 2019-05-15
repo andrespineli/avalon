@@ -4,6 +4,7 @@ use Http\Request;
 use Http\Response;
 use Config\Env;
 use Config\Template;
+use Config\Collection;
 
 $env = Env::read();
 
@@ -28,6 +29,11 @@ function render($view, $data = [])
 {
 	$template = new Template;
 	$template->render($view, $data);
+}
+
+function collect($array)
+{
+	return new Collection($array);
 }
 
 function cli_print($string, $array = [])
