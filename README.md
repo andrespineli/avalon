@@ -18,6 +18,7 @@ composer install
 - [x] MySQL driver
 - [x] MSSQL driver
 - [x] Template engine
+- [x] Collection (Iterator)
 - [x] Test framework
 - [x] CLI Commands
 - [ ] DI Container
