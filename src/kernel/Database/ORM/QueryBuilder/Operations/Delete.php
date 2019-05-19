@@ -15,8 +15,8 @@ class Delete extends Operation implements IOperation
 	public function sql()
 	{	
 		$this->validate();				
-		$query = "DELETE FROM %s WHERE 1=1";
-		$this->query = sprintf($query, $this->table);			
+		$query = "DELETE FROM %s AS %s WHERE 1=1";
+		$this->query = sprintf($query, $this->table, $this->alias);			
 		return $this;	
 	}	
 	

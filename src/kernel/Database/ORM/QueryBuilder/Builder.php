@@ -58,6 +58,12 @@ class Builder implements IBuilder
 		return $this;
 	}
 
+	public function innerJoin()
+	{
+		$this->query->innerJoin('products', 'id', 'user_id');
+		return $this;
+	}
+
 	public function limit($value)
 	{
 		$this->query->limit($value);
@@ -66,6 +72,8 @@ class Builder implements IBuilder
 
 	public function query()
 	{		
+		echo $this->query->innerJoin('users', 'id', 'user_id')->get();
+		
 		return $this->query->get();
 	}
 

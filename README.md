@@ -22,7 +22,7 @@ composer install
 - [x] Test framework
 - [x] CLI Commands
 - [ ] DI Container
-
+- [ ] Documentação (andamento)
 
 This project does not use any third party library, its purpose is to reimplement features and concepts of market frameworks for educational purposes.
 

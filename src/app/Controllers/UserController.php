@@ -14,13 +14,15 @@ class UserController
         $userDAO = new UserDAO($user);
         $result = $userDAO->get();
 
-        $result = collect($result);
+        // $result = collect($result);
 
-        $result->map(function($value) {
-            return $value['name'];
-        });
+        // $result->map(function($value) {
+        //     return $value['name'];
+        // });
 
-        echo $result;
+        //return $result->get();
+
+        return $result;
     }
 
 	public function find($id)

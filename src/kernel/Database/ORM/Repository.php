@@ -83,6 +83,12 @@ class Repository
 		return $this->find($pk);
 	}		
 
+	public function with()
+	{
+		$this->builder->innerJoin();
+		return $this;
+	}
+
 	public function get()
 	{
 		if (!$this->result) {

@@ -14,11 +14,13 @@ class Update extends Operation implements IOperation
 	{	
 		$this->validate();
 
-		$set = $this->getPdoEqualsStringParams();
+		$set = $this->fields->keys()->map(function($key) {
+			return "{$key}=:{$key}";
+		})->implode();
 
-		$query = "UPDATE %s SET %s WHERE 1=1";
-		$this->query = sprintf($query, $this->table, $set);	
-		$this->values = $this->fields;
+		$query = "UPDATE %s AS %s SET %s WHERE 1=1";
+		$this->query = sprintf($query, $this->table, $this->alias, $set);	
+		$this->values = $this->fields->get();
 		return $this;	
 	}	
 	

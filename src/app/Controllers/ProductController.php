@@ -13,7 +13,7 @@ class ProductController
 
     public function get()
     {    
-        return $this->product->all()->get();
+        return $this->product->all()->with()->get();
     }
 
 	public function find($id)

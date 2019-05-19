@@ -11,13 +11,14 @@ class Insert extends Operation implements IOperation
 	{	
 		$this->validate();
 		
-		$params = $this->getPdoStringParams();
-		$bind = $this->getPdoBindStringParams();
+		$params = $this->fields->keys()->implode();
+		$bind = $this->fields->keys()->map(function($value) {
+			return ":{$value}";
+		})->implode();
 				
 		$query = "INSERT INTO %s (%s) VALUES (%s)";
 		$this->query = sprintf($query, $this->table, $params, $bind);	
-		$this->values = $this->fields;
-
+		$this->values = $this->fields->get();
 		return $this;	
 	}	
 }
